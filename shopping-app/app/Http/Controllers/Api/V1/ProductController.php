@@ -10,7 +10,7 @@ class ProductController extends Controller
         
     public function get_popular_products(Request $request){
   
-        $list = Food::where('type_id', 2)->take(10)->get();
+        $list = Food::where('type_id', 2)->take(10)->orderBy('created_at','DESC')->get();
         
                 foreach ($list as $item){
                     $item['description']=strip_tags($item['description']);
@@ -30,7 +30,7 @@ class ProductController extends Controller
  
     }
         public function get_recommended_products(Request $request){
-        $list = Food::where('type_id', 3)->take(10)->get();
+        $list = Food::where('type_id', 3)->take(10)->orderBy('created_at','DESC')->get();
         
                 foreach ($list as $item){
                     $item['description']=strip_tags($item['description']);
@@ -50,7 +50,7 @@ class ProductController extends Controller
     }
     
         public function get_drinks(Request $request){
-        $list = Food::where('type_id', 4)->take(10)->get();
+        $list = Food::where('type_id', 4)->take(10)->orderBy('created_at','DESC')->get();
         
                 foreach ($list as $item){
                     $item['description']=strip_tags($item['description']);
@@ -70,23 +70,23 @@ class ProductController extends Controller
     }
     
 
-       public function test_get_recommended_products(Request $request){
+    //    public function test_get_recommended_products(Request $request){
   
-        $list = Food::skip(5)->take(2)->get();
+    //     $list = Food::skip(5)->take(2)->get();
       
-        foreach ($list as $item){
-            $item['description']=strip_tags($item['description']);
-            $item['description']=$Content = preg_replace("/&#?[a-z0-9]+;/i"," ",$item['description']); 
-        }
+    //     foreach ($list as $item){
+    //         $item['description']=strip_tags($item['description']);
+    //         $item['description']=$Content = preg_replace("/&#?[a-z0-9]+;/i"," ",$item['description']); 
+    //     }
         
-         $data =  [
-            'total_size' => $list->count(),
-            'limit' => 5,
-            'offset' => 0,
-            'products' => $list
-        ];
-         return response()->json($data, 200);
-        // return json_decode($list);
-    }
+    //      $data =  [
+    //         'total_size' => $list->count(),
+    //         'limit' => 5,
+    //         'offset' => 0,
+    //         'products' => $list
+    //     ];
+    //      return response()->json($data, 200);
+    //     // return json_decode($list);
+    // }
 
 }
